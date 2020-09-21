@@ -30,7 +30,7 @@ flutternodeboilerplate/.idea/
 #.vscode/
 
 # Flutter/Dart/Pub related
-**/doc/api/
+flutternodeboilerplate/**/doc/api/
 flutternodeboilerplate/.dart_tool/
 flutternodeboilerplate/.flutter-plugins
 flutternodeboilerplate/.flutter-plugins-dependencies
