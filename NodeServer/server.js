@@ -46,9 +46,6 @@ app.use(express.static(path.join(__dirname, "client/build")));
 const apiRouter = require("./routes/api");
 app.use("/api", apiRouter);
 
-const blogRouter = require("./routes/blog");
-app.use("/blogs", blogRouter);
-
 app.use(express.static(process.cwd() + "/public"));
 
 app.use(function (req, res) {
