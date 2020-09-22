@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
-import 'package:blogapp/src/pages/home/homepage.dart';
+import 'package:flutternodeboilerplate/src/pages/home/homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import 'package:blogapp/src/api/userapiclass.dart';
-import 'dart:convert';
+import 'package:flutternodeboilerplate/src/api/userapiclass.dart';
+
 const users = const {
   '01819648302': '12345',
   'hunter@gmail.com': 'hunter',
@@ -16,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenForm extends State<LoginScreen> {
   UserApi userApi= new UserApi();
-  String password="",mobile="";
+  String password="",mobile="",apiMobile="";
   bool login=true;
   @override
   Duration get loginTime => Duration(milliseconds: 2250);
@@ -26,51 +25,34 @@ class LoginScreenForm extends State<LoginScreen> {
   password=data.password;
   login=false;
   });
-  print('Name: ${data.name}, Password: ${data.password}');
-
   return Future.delayed(loginTime).then((_)async {
     var res= await userApi.addUser(data.name,data.password);
-    print(res);
-    print("resres");
+
     if(!res['success']){
       return res['error'];
     }
-//      if (!users.containsKey(data.name)) {
-//        return 'Mobile Number not exists';
-//      }
-//      if (users[data.name] != data.password) {
-//        return 'Password does not match';
-//      }
-  return null;
-  });
-}
-void apiTest(String name)async{
-  var url = "http://10.0.2.2:5000/api/user";
-  Map<String, String> headers = new Map();
-  headers['Content-Type'] = 'application/json';
-  var body = json.encode({
-    "name": name,
-  });
 
-  var tokenResponse = await http.post(url, body: body, headers: headers);
-  var userToken = jsonDecode(tokenResponse.body)['success'];
-  print(userToken);
+        apiMobile = res['mobile'];
+        return null;
+  });
 }
+
   Future<String> _login(LoginData data) {
     setState(() {
       mobile=data.name;
       password=data.password;
      login=true;
     });
-    print('Name: ${data.name}, Password: ${data.password}');
-    apiTest(data.name);
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'Mobile number does not exists';
+    return Future.delayed(loginTime).then((_) async{
+      var res= await userApi.login(data.name,data.password);
+      if(!res['success']){
+        return res['error'];
       }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
+
+      apiMobile = res['mobile'];
+      return null;
+
+
       return null;
     });
   }
@@ -89,7 +71,7 @@ void apiTest(String name)async{
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return Home("as");
+          return Home(apiMobile);
         },
       ),
     );

@@ -3,18 +3,12 @@
 class User {
   String key;
   String name;
-  String gender;
   String mobile;
   String password;
-  String email;
-  String address;
 
   User(
-      this.name,
       this.mobile,
-      this.password,
-      this.gender,
-      this.email, this.address);
+      );
   //User(this.mobile,this.password);
 
 //  User.fromSnapshot(DataSnapshot snapshot)
@@ -37,9 +31,6 @@ class User {
       "username": name,
       "mobile": mobile,
       "password": password,
-      "gender": gender,
-      "email": email,
-      "address":address,
 
     };
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:blogapp/src/pages/login/loginpage.dart';
+import 'package:flutternodeboilerplate/src/pages/login/loginpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
@@ -90,6 +90,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    String m="Hey user, Your number is "+mobile;
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -110,6 +111,7 @@ class _HomeState extends State<Home> {
               Text("ProximaNova Font Example",style: TextStyle(fontFamily: "ProximaNova", fontSize: 20),),
               Text("ProximaNova Italic style Font Example",style: TextStyle(fontFamily: "ProximaNova", fontSize: 20,fontStyle: FontStyle.italic),),
               Text("ProximaNova w700 Font Example",style: TextStyle(fontFamily: "ProximaNova", fontSize: 20,fontWeight: FontWeight.w700),),
+              Text(m,style: TextStyle(fontFamily: "ProximaNova", fontSize: 20,fontStyle: FontStyle.italic),),
               Text("Image Example",style: TextStyle( fontSize: 20,fontWeight: FontWeight.w700),),
               Card(
                 semanticContainer: true,
